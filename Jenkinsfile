@@ -26,7 +26,7 @@ pipeline {
                     input message:'Approve PRODUCTION Deployment?'
                 }
 
-                build job: 'Deploy-to-Prod'
+                build job: 'Deploy-to-Prd'
             }
             //en caso de exito o failure, puedes hacer acciones
             post {
