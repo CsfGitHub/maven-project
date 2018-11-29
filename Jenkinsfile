@@ -1,4 +1,5 @@
 pipeline {
+    //cualquier agente puede coger el pipeline
     agent any
     stages{
         stage('Build'){
@@ -12,10 +13,33 @@ pipeline {
                 }
             }
         }
-        stage ('Deploy To Staging'){
-           steps {
-              build job: 'deploy-to-staging'
-           }
+        stage ('Deploy to Staging'){
+            steps {
+                build job: 'Deploy-to-staging'
+            }
         }
+
+        stage ('Deploy to Production'){
+            steps{
+                timeout(time:5, unit:'DAYS'){
+                    //don't allow direct deployments, require 
+                    input message:'Approve PRODUCTION Deployment?'
+                }
+
+                build job: 'Deploy-to-Prod'
+            }
+            //en caso de exito o failure, puedes hacer acciones
+            post {
+                success {
+                    echo 'Code deployed to Production.'
+                }
+
+                failure {
+                    echo ' Deployment failed.'
+                }
+            }
+        }
+
+
     }
 }
