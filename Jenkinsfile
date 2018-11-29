@@ -19,7 +19,7 @@ pipeline {
             }
         }
 
-        stage ('Deploy to Production'){
+        stage ('Deploy to prod'){
             steps{
                 timeout(time:5, unit:'DAYS'){
                     //don't allow direct deployments, require 
