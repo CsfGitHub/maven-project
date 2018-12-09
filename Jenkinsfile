@@ -6,7 +6,8 @@ pipeline {
             steps {
                 sh 'mvn clean package'
                 //el ouput será guarddo localmente como tomcatwebapp + version de jenkins
-                sh 'docker build . -t tomcatwebapp:${env.BUILD_ID}' //current diretory, or current jenkins build directory
+                //el '.' es el current diretory, or current jenkins build directory
+                sh "docker build . -t tomcatwebapp:${env.BUILD_ID}" 
              }             
             
         }
